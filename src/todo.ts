@@ -11,8 +11,11 @@ const input = document.getElementById('input')! as HTMLInputElement;
 const list = document.getElementById('list')! as HTMLUListElement;
 list.setAttribute("style", "list-style-type:none;");
 
+const clear = document.getElementById('clear')! as HTMLElement;
+const completeButton = document.getElementById('completeButton')! as HTMLElement;
+const removeButton = document.getElementById('removeButton')! as HTMLElement;
+
 console.log('Cookie reading ...');
-let indexVar: number = 1;
 console.log(document.cookie.valueOf());
 
 let cookieObject = document.cookie.split('; ').reduce((prev, current) => {
@@ -63,40 +66,60 @@ document.addEventListener("submit", e => {
   addListItem(newTask)
 })
 
+clear.addEventListener("click", e => {
+  e.preventDefault()
+
+  console.log("Delete all cookies.");
+
+  taskId = 0
+
+  deleteAllCookies()
+
+  // Refresh the page
+  location.reload();
+})
+
 function addListItem(task: Task){
   console.log("add list item: " + task.title);
   const item = document.createElement("li")
   const label = document.createElement("label")
   const div = document.createElement("div")
-  div.setAttribute("text-align", "center")
+  div.className = "row g-5"
 
+  // Text
+  const text = document.createElement("h3")
+  text.setAttribute("id", "text")
+  text.setAttribute("type", "text")
+  text.setAttribute("class", "justify-content-center col-xs-4 col-xs-offset-1 col-sm-4 col-md-offset-1 col-md-4 col-md-offset-1")
+  text.textContent = task.title
+  
   // Complete Button
   const completeButton = document.createElement("button")
   completeButton.textContent = "Completed"
   completeButton.setAttribute("id", "completeButton")
   completeButton.setAttribute("type", "completeButton")
-  completeButton.setAttribute("class", "btn btn-primary")
+  completeButton.setAttribute("class", "btn btn-primary col-xs-4 col-xs-offset-1 col-sm-3 col-sm-offset-1 col-md-2 col-md-offset-1")
 
   // Remove Button
   const removeButton = document.createElement("button") 
   removeButton.textContent = "Remove"
   removeButton.setAttribute("id", "removeButton")
   removeButton.setAttribute("type", "removeButton")
-  removeButton.setAttribute("class", "btn btn-primary")
+  removeButton.setAttribute("class", "btn btn-primary col-xs-4 col-xs-offset-1 col-sm-3 col-sm-offset-1 col-md-2 col-md-offset-1")
 
-  div.append(task.title, completeButton, removeButton)
+  div.append(text, completeButton, removeButton)
   item.append(div)
   list?.append(item)
   console.log("list item appended")
 }
 
-document.addEventListener("completeButton", e => {
+completeButton?.addEventListener("click", e => {
   e.preventDefault()
 
   console.log("completeButton activated");
 })
 
-document.addEventListener("removeButton", e => {
+removeButton?.addEventListener("click", e => {
   e.preventDefault()
 
   console.log("removeButton activated");
@@ -133,4 +156,15 @@ function deleteCookie(name: string) {
 
   // Set it
   document.cookie = name+"=; expires="+date.toUTCString()+"; path=/";
+}
+
+function deleteAllCookies() {
+  const cookies = document.cookie.split(";");
+
+  for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i];
+      const eqPos = cookie.indexOf("=");
+      const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+      document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+  }
 }

@@ -3,8 +3,10 @@ var form = document.getElementById('form');
 var input = document.getElementById('input');
 var list = document.getElementById('list');
 list.setAttribute("style", "list-style-type:none;");
+var clear = document.getElementById('clear');
+var completeButton = document.getElementById('completeButton');
+var removeButton = document.getElementById('removeButton');
 console.log('Cookie reading ...');
-var indexVar = 1;
 console.log(document.cookie.valueOf());
 var cookieObject = document.cookie.split('; ').reduce(function (prev, current) {
     var _a = current.split('='), name = _a[0], value = _a.slice(1);
@@ -39,34 +41,48 @@ document.addEventListener("submit", function (e) {
     setCookie("".concat(newTask.taskId), "".concat(newTask.title));
     addListItem(newTask);
 });
+clear.addEventListener("click", function (e) {
+    e.preventDefault();
+    console.log("Delete all cookies.");
+    taskId = 0;
+    deleteAllCookies();
+    // Refresh the page
+    location.reload();
+});
 function addListItem(task) {
     console.log("add list item: " + task.title);
     var item = document.createElement("li");
     var label = document.createElement("label");
     var div = document.createElement("div");
-    div.setAttribute("text-align", "center");
+    div.className = "row g-5";
+    // Text
+    var text = document.createElement("h3");
+    text.setAttribute("id", "text");
+    text.setAttribute("type", "text");
+    text.setAttribute("class", "justify-content-center col-xs-4 col-xs-offset-1 col-sm-4 col-md-offset-1 col-md-4 col-md-offset-1");
+    text.textContent = task.title;
     // Complete Button
     var completeButton = document.createElement("button");
     completeButton.textContent = "Completed";
     completeButton.setAttribute("id", "completeButton");
     completeButton.setAttribute("type", "completeButton");
-    completeButton.setAttribute("class", "btn btn-primary");
+    completeButton.setAttribute("class", "btn btn-primary col-xs-4 col-xs-offset-1 col-sm-3 col-sm-offset-1 col-md-2 col-md-offset-1");
     // Remove Button
     var removeButton = document.createElement("button");
     removeButton.textContent = "Remove";
     removeButton.setAttribute("id", "removeButton");
     removeButton.setAttribute("type", "removeButton");
-    removeButton.setAttribute("class", "btn btn-primary");
-    div.append(task.title, completeButton, removeButton);
+    removeButton.setAttribute("class", "btn btn-primary col-xs-4 col-xs-offset-1 col-sm-3 col-sm-offset-1 col-md-2 col-md-offset-1");
+    div.append(text, completeButton, removeButton);
     item.append(div);
     list === null || list === void 0 ? void 0 : list.append(item);
     console.log("list item appended");
 }
-document.addEventListener("completeButton", function (e) {
+completeButton === null || completeButton === void 0 ? void 0 : completeButton.addEventListener("click", function (e) {
     e.preventDefault();
     console.log("completeButton activated");
 });
-document.addEventListener("removeButton", function (e) {
+removeButton === null || removeButton === void 0 ? void 0 : removeButton.addEventListener("click", function (e) {
     e.preventDefault();
     console.log("removeButton activated");
 });
@@ -94,4 +110,13 @@ function deleteCookie(name) {
     date.setTime(date.getTime() + (-1 * 24 * 60 * 60 * 1000));
     // Set it
     document.cookie = name + "=; expires=" + date.toUTCString() + "; path=/";
+}
+function deleteAllCookies() {
+    var cookies = document.cookie.split(";");
+    for (var i_1 = 0; i_1 < cookies.length; i_1++) {
+        var cookie = cookies[i_1];
+        var eqPos = cookie.indexOf("=");
+        var name_1 = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+        document.cookie = name_1 + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    }
 }

@@ -9,12 +9,26 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
     </head>
-    <body> 
-        <form id="form">
-            <input type="text" id="input">
-            <button type="submit" id="submit" class="btn btn-primary">Add</button>
-        </form>
-        <ul id="list"></ul>
+    <body>
+        <div class="row">
+            <div class="col-xs-12 col-sm-8 col-md-8">
+                <h1 class="d-flex justify-content-center" style="padding: 2rem;">Todo List</h1>
+            </div>
+        </div>
+        <div class="row">
+            <form id="form" class="d-flex justify-content-center" style="padding: 2rem;">
+                <input type="text" id="input" class="col-xs-8 col-sm-8 col-md-8">
+                <button type="submit" id="submit" class="btn btn-primary" class="col-xs-4 col-sm-4 col-md-4">Add</button>
+            </form>
+        </div>
+        <div class="container px-4">
+            <ul id="list"></ul>
+        </div>
+        <div class="row">
+            <div class="container px-4 d-flex justify-content-center">
+                <button type="clear" id="clear" class="btn btn-primary">Clear list</button>
+            </div>
+        </div>
 
         <!-- Bootstrap core JS -->
         <!-- <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet"> -->
