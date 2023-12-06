@@ -77,15 +77,15 @@ function addListItem(task) {
     item.append(div);
     list === null || list === void 0 ? void 0 : list.append(item);
     console.log("list item appended");
+    completeButton === null || completeButton === void 0 ? void 0 : completeButton.addEventListener("click", function (e) {
+        e.preventDefault();
+        console.log("completeButton activated");
+    });
+    removeButton === null || removeButton === void 0 ? void 0 : removeButton.addEventListener("click", function (e) {
+        e.preventDefault();
+        console.log("removeButton activated");
+    });
 }
-completeButton === null || completeButton === void 0 ? void 0 : completeButton.addEventListener("click", function (e) {
-    e.preventDefault();
-    console.log("completeButton activated");
-});
-removeButton === null || removeButton === void 0 ? void 0 : removeButton.addEventListener("click", function (e) {
-    e.preventDefault();
-    console.log("removeButton activated");
-});
 /*
  * General utils for managing cookies in Typescript.
  */

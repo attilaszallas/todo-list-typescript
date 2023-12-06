@@ -111,19 +111,19 @@ function addListItem(task: Task){
   item.append(div)
   list?.append(item)
   console.log("list item appended")
+
+  completeButton?.addEventListener("click", e => {
+    e.preventDefault()
+  
+    console.log("completeButton activated");
+  })
+
+  removeButton?.addEventListener("click", e => {
+    e.preventDefault()
+  
+    console.log("removeButton activated");
+  })
 }
-
-completeButton?.addEventListener("click", e => {
-  e.preventDefault()
-
-  console.log("completeButton activated");
-})
-
-removeButton?.addEventListener("click", e => {
-  e.preventDefault()
-
-  console.log("removeButton activated");
-})
 
 /*
  * General utils for managing cookies in Typescript.
