@@ -122,6 +122,8 @@ function addListItem(task: Task){
     e.preventDefault()
   
     console.log("removeButton activated");
+
+    item.remove();
   })
 }
 

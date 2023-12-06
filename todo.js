@@ -84,6 +84,7 @@ function addListItem(task) {
     removeButton === null || removeButton === void 0 ? void 0 : removeButton.addEventListener("click", function (e) {
         e.preventDefault();
         console.log("removeButton activated");
+        item.remove();
     });
 }
 /*
